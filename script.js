@@ -76,7 +76,7 @@ displayBooks();
             bookInfoDiv.innerHTML = `<strong>Title:</strong> ${title}<br>
                                      <strong>Author:</strong> ${author}<br>
                                      <strong>Pages:</strong> ${pages}<br>
-                                     <strong class="read-status">Read: ${read}</strong><br>;`
+                                     <strong class="read-status">Read: ${read}</strong>;`
             const removeButton = document.createElement('button');
             const toggleButton = document.createElement('button');
             removeButton.textContent = 'remove';
