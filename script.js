@@ -7,3 +7,8 @@ function Book(title, author, pages, read = false) {
 
 }
 
+const myLibrary = [
+    new Book("back to the future", "George gipe", 224),
+    new Book("To Kill a Mockingbird", " Harper Lee", 281)
+]
+
