@@ -17,24 +17,36 @@ function addBookToLibrary(Book) {
 }
 
 const showDialogButton = document.getElementById('showDialog');
-const closeDialogButton = document.getElementById('closeDialog');
-        const dialog = document.getElementById('bookDialog');
+        const bookDialog = document.getElementById('bookDialog');
+        const closeDialogButton = document.getElementById('closeDialog');
+        const bookForm = document.getElementById('bookForm');
+        const bookInfoContainer = document.getElementById('bookInfoContainer');
 
         showDialogButton.addEventListener('click', () => {
-            dialog.showModal();
-           
+            bookDialog.showModal();
         });
 
         closeDialogButton.addEventListener('click', () => {
-            dialog.close();
+            bookDialog.close();
         });
 
-        dialog.addEventListener('close', () => {
-            if (dialog.returnValue === 'submit') {
-                const title = document.getElementById('title').value;
-                const author = document.getElementById('author').value;
-                const pages = document.getElementById('pages').value;
-                console.log(`Title: ${title}, Author: ${author}, Pages: ${pages}`);
+        bookForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const title = document.getElementById('title').value;
+            const author = document.getElementById('author').value;
+            const pages = document.getElementById('pages').value;
+
+            if (title && author && pages) {
+                bookDialog.close();
+                const bookInfoDiv = document.createElement('div');
+                bookInfoDiv.classList.add('book-info');
+                bookInfoDiv.innerHTML = `<strong>Title:</strong> ${title}<br>
+                                         <strong>Author:</strong> ${author}<br>
+                                         <strong>Pages:</strong> ${pages}`;
+                bookInfoContainer.appendChild(bookInfoDiv);
+            } else {
+                alert('Please fill in all fields.');
             }
         });
 
+       
