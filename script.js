@@ -16,3 +16,25 @@ function addBookToLibrary(Book) {
     myLibrary.push( Book);
 }
 
+const showDialogButton = document.getElementById('showDialog');
+const closeDialogButton = document.getElementById('closeDialog');
+        const dialog = document.getElementById('bookDialog');
+
+        showDialogButton.addEventListener('click', () => {
+            dialog.showModal();
+           
+        });
+
+        closeDialogButton.addEventListener('click', () => {
+            dialog.close();
+        });
+
+        dialog.addEventListener('close', () => {
+            if (dialog.returnValue === 'submit') {
+                const title = document.getElementById('title').value;
+                const author = document.getElementById('author').value;
+                const pages = document.getElementById('pages').value;
+                console.log(`Title: ${title}, Author: ${author}, Pages: ${pages}`);
+            }
+        });
+
