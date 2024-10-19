@@ -68,36 +68,45 @@ displayBooks();
         });
 
 
+        function createElement(tag, className, innerHTML) {
+            const element = document.createElement(tag);
+            if (className) element.classList.add(className);
+            if (innerHTML) element.innerHTML = innerHTML;
+            return element;
+        }
+        
+        function createButton(text, onClick) {
+            const button = document.createElement('button');
+            button.textContent = text;
+            button.addEventListener('click', onClick);
+            return button;
+        }
+        
+        function updateReadStatus(bookInfoDiv, book) {
+            bookInfoDiv.querySelector('.read-status').textContent = `Read: ${book.read}`;
+        }
+        
         function createBookContainer(book) {
-            const {id, title, author, pages, read } = book;
-
-            const bookInfoDiv = document.createElement('div');
-            bookInfoDiv.classList.add('book-info');
-            bookInfoDiv.innerHTML = `<strong>Title:</strong> ${title}<br>
-                                     <strong>Author:</strong> ${author}<br>
-                                     <strong>Pages:</strong> ${pages}<br>
-                                     <strong class="read-status">Read: ${read}</strong>;`
-            const removeButton = document.createElement('button');
-            const toggleButton = document.createElement('button');
-            removeButton.textContent = 'remove';
-            toggleButton.textContent = 'Read Status'
-            
-            removeButton.addEventListener('click', () => {
-                bookInfoContainer.removeChild( bookInfoDiv);
-                bookInfoContainer.removeChild( removeButton);
-                bookInfoContainer.removeChild( toggleButton);
+            const { id, title, author, pages, read } = book;
+        
+            const bookInfoDiv = createElement('div', 'book-info', `<strong>Title:</strong> ${title}<br>
+                                                                  <strong>Author:</strong> ${author}<br>
+                                                                  <strong>Pages:</strong> ${pages}<br>
+                                                                  <strong class="read-status">Read: ${read}</strong>`);
+        
+            const removeButton = createButton('remove', () => {
+                bookInfoContainer.removeChild(bookInfoDiv);
+                bookInfoContainer.removeChild(removeButton);
+                bookInfoContainer.removeChild(toggleButton);
                 myLibrary = myLibrary.filter(b => b.id !== id);
-                
             });
-            toggleButton.addEventListener('click', ()=>{
-               book.readStatus();
-               bookInfoDiv.querySelector('.read-status').innerHTML = " "
-               bookInfoDiv.querySelector('.read-status').textContent = `Read: ${book.read}`;
-               console.log( book.read);
-            })
-            bookInfoContainer.appendChild( bookInfoDiv);
+        
+            const toggleButton = createButton('Read Status', () => {
+                book.readStatus();
+                updateReadStatus(bookInfoDiv, book);
+            });
+        
+            bookInfoContainer.appendChild(bookInfoDiv);
             bookInfoContainer.appendChild(removeButton);
             bookInfoContainer.appendChild(toggleButton);
         }
-
-       
