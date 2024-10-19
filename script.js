@@ -81,6 +81,7 @@ displayBooks();
             const toggleButton = document.createElement('button');
             removeButton.textContent = 'remove';
             toggleButton.textContent = 'Read Status'
+            
             removeButton.addEventListener('click', () => {
                 bookInfoContainer.removeChild( bookInfoDiv);
                 bookInfoContainer.removeChild( removeButton);
